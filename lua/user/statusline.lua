@@ -86,7 +86,7 @@ end
 local git_branch = require("user.utils").git_branch()
 statusline_modules.git = function()
     if git_branch then
-        return "%#StatusLineGit# " .. git_branch .. "%#StatusLineEmptySpace# "
+        return "%#StatusLineGit#   " .. git_branch .. "%#StatusLineEmptySpace# "
     end
     return "%#StatusLineEmptySpace#"
 end
@@ -145,7 +145,7 @@ vim.api.nvim_set_hl(0, "StatusLineSelectModeSep", { fg = "#5E81AC", bg = "#5E81A
 return function()
     local statusline = {}
     local order = {
-        "mode", "file", "git", "%=", "%=", "cwd", "cursor"
+        "mode", "git", "%=", "%=", "cwd", "cursor"
     }
 
     for _, component in ipairs(order) do

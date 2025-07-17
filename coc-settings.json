@@ -1,5 +1,8 @@
 {
     "clangd.arguments": [
+        "--clang-tidy",
+        "--clang-tidy-checks=*",
+        "--fallback-style=Google",
         "--log=verbose",
         "--header-insertion=never",
     ],
