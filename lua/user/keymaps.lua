@@ -47,6 +47,7 @@ vim.keymap.set("n", "<leader>a", utils.emily, { desc = "Appa, yip yip!!" })
 
 vim.keymap.set("n", "<leader>x", utils.bclose, { desc = "Buffer close" })
 vim.keymap.set("n", "<leader>q", ":%bd|e#<CR>", { desc = "Close all buffers", silent = true })
+vim.keymap.set("n", "<leader>d", '90|Bi<CR><Esc>', { desc = "Break Line", silent = true })
 vim.keymap.set("n", "<tab>", utils.bnext, { desc = "Buffer goto next" })
 vim.keymap.set("n", "<S-tab>", utils.bprevious, { desc = "Buffer goto prev" })
 
