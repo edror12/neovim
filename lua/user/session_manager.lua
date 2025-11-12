@@ -77,19 +77,15 @@ end
 
 local function remove_session()
     local choice = session_names[selected_index]
-    local msg = string.format("Remove session %s [y/N] ", choice)
-    local input = vim.fn.input(msg)
-    if input ~= "y" then
-        return
-    end
-
     local session_file = session_dir .. choice .. ".vim"
     if vim.fn.delete(session_file) == 0 then
-        vim.cmd("close")
         vim.notify("Session deleted")
     else
         vim.notify("Session not found", vim.log.levels.ERROR)
     end
+
+    vim.cmd("close")
+    M.show_session_manager()
 end
 
 -- Pop-up window
