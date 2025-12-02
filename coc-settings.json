@@ -1,0 +1,41 @@
+{
+    "clangd.arguments": [
+        "-j=2",                              // limit to 2 threads (good)
+        "--background-index=false",          // disable global indexing (major RAM saver)
+        "--limit-results=500",               // limit symbol results to keep memory low
+        "--clang-tidy",                      // keep tidy on, but with fewer checks
+        "--clang-tidy-checks=-*,bugprone-*,performance-*",
+        "--header-insertion=never",
+        "--log=error",                       // avoid verbose logs (saves some CPU)
+        "--completion-style=detailed",       // optional: smaller completion model
+        "--fallback-style=Google"
+    ],
+    "Lua.runtime.version": "LuaJIT",
+    "Lua.diagnostics.globals": ["vim"],
+    "Lua.workspace.library": [
+        "${3rd}/luv/library",
+        "${3rd}/busted/library"
+    ],
+    "Lua.workspace.checkThirdParty": false,
+    "python.pythonPath": "/usr/bin/python3",
+    "python.formatting.provider": "autopep8",
+    "python.formatting.autopep8Path": "autopep8",
+    "python.formatting.autopep8Args": [
+        "--aggressive",
+        "--aggressive",
+        "--aggressive",
+        "--aggressive",
+        "--global-config",
+        ".pep8"
+    ],
+    "python.formatting.blackPath": "",
+    "python.formatting.yapfPath": "",
+    "coc.preferences.formatOnSave": false,
+    "inlayHint.enable": false,
+    "inlayHint.display": true,
+    "inlayHint.enableParameter": true,
+    "inlayHint.refreshOnInsertMode": true,
+    "markdown-preview-enhanced.previewTheme": "github-dark.css",
+    "markdown-preview-enhanced.chromePath": "/Applications/Chromium.app/Contents/MacOS/Chromium",
+}
+
