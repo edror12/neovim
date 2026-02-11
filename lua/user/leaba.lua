@@ -4,7 +4,7 @@ local padding = 5
 local padding_char = " "
 local guides_names = {}
 local selected_index = 1
-local dashboard_dir = "/Users/emilydror/work/dashboard/"
+local dashboard_dir = vim.fn.expand("~") .. "/work/dashboard/"
 
 vim.fn.mkdir(dashboard_dir, "p")
 
