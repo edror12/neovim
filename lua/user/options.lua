@@ -53,3 +53,7 @@ vim.cmd [[
     au BufWritePre * :%s/\s\+$//e
 ]]
 
+vim.cmd [[
+    au BufWritePre *.md :CocCommand prettier.formatFile
+]]
+

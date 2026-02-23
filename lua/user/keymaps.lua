@@ -96,8 +96,9 @@ vim.keymap.set('n', '<leader>gP', gitsigns.preview_hunk, { desc = "Preview Hunk"
 vim.keymap.set('n', '<leader>gb', function() gitsigns.blame_line{full=true} end, { desc = "Blame Line" })
 vim.keymap.set('n', '<leader>gB', gitsigns.toggle_current_line_blame, { desc = "Toggle Current Line Blame" })
 vim.keymap.set('n', '<leader>gD', gitsigns.toggle_deleted, { desc = "Toggle Deleted" })
-vim.keymap.set('n', '<leader>gq', function() gitsigns.setqflist('all') end, { desc = "QF List Of All Changes" })
 vim.keymap.set({'o', 'x'}, 'ih',  ':<C-U>Gitsigns select_hunk<CR>', { desc = "Select Hunk" })
+vim.keymap.set('n', '<leader>gq', function() gitsigns.setqflist('all') end, { desc = "QuickList Hunks (repo)" })
+vim.keymap.set('n', '<leader>gQ', gitsigns.setqflist, { desc = "QuickList Hunks (buffer)" })
 
 -- Session Manager
 local manager = require("user.session_manager")
