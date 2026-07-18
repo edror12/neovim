@@ -70,3 +70,4 @@ vim.cmd [[
     hi BufferLineDevIconLua guibg=#000000
 ]]
 
+vim.opt.cinkeys = "0{,0},:,!<Tab>,!^F"

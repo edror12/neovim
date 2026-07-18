@@ -37,5 +37,6 @@
     "inlayHint.refreshOnInsertMode": true,
     "markdown-preview-enhanced.previewTheme": "github-dark.css",
     "markdown-preview-enhanced.chromePath": "/Applications/Chromium.app/Contents/MacOS/Chromium",
+    "nix.formatterPath": "nixfmt"
 }
 

@@ -7,7 +7,6 @@ require'nvim-treesitter.configs'.setup {
         "lua",
         "vim",
         "python",
-        "latex"
     },
 
     sync_install = true,
