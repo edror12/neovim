@@ -43,6 +43,9 @@ vim.keymap.set("v", "<S-Down>", ":m .+1<CR>==", opts("Move text down", true))
 vim.keymap.set("x", "<S-Up>", ":move '<-2<CR>gv-gv", opts("Move text up", true))
 vim.keymap.set("x", "<S-Down>", ":move '>+1<CR>gv-gv", opts("Move text down", true))
 
+vim.keymap.set("n", "<leader>/", "gcc", { desc = "Toggle comment", remap = true })
+vim.keymap.set("v", "<leader>/", "gc",  { desc = "Toggle comment", remap = true })
+
 -- Utilities
 local utils = require("user.utils")
 vim.keymap.set("n", "<leader>a", utils.emily, { desc = "Appa, yip yip!!" })

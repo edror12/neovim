@@ -37,6 +37,9 @@ vim.opt.sidescrolloff = 4                       -- keep at least 4 columns visib
 vim.opt.shortmess:append "c"                    -- suppress completion messages
 vim.opt.whichwrap:append("<,>,[,],h,l")         -- allow left/right motions to cross line boundaries
 vim.opt.guicursor = "n-a-v-c:ver25"             -- use a vertical bar cursor in Normal, Visual, Select, and Command modes
+vim.opt.list = true
+vim.opt.listchars:append({ leadmultispace = "│   " })
+
 
 -- Whitespaces
 vim.api.nvim_create_autocmd("BufWritePre", {
@@ -48,3 +51,4 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 -- Only highlight with treesitter
 vim.cmd('syntax off')
 vim.cmd.colorscheme("cppdark")
+

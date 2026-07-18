@@ -14,22 +14,35 @@ vim.pack.add({
     { src = 'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim', version = "main" },
     { src = "https://github.com/SmiteshP/nvim-navic",                       version = "master" },
     { src = "https://github.com/windwp/nvim-autopairs",                     version = "master" },
+    { src = "https://github.com/stevearc/conform.nvim",                     version = "master" },
     { src = "https://github.com/nvim-tree/nvim-tree.lua",                   version = "master" },
     { src = "https://github.com/nvim-tree/nvim-web-devicons",               version = "master" },
-    { src = "https://github.com/lukas-reineke/indent-blankline.nvim",       version = "master" },
 })
 
-require("ibl").setup()
 require("mason").setup()
 require("barbecue").setup({ create_autocmd = true })
 require("gitsigns").setup()
 require("nvim-autopairs").setup()
 require("which-key").setup({ triggers = { "<leader>" }, win = { border = "rounded" } })
+require("conform").setup({
+    formatters_by_ft = {
+        javascript  = { "prettier" },
+        typescript  = { "prettier" },
+        jsx         = { "prettier" },
+        tsx         = { "prettier" },
+        css         = { "prettier" },
+        html        = { "prettier" },
+        json        = { "prettier" },
+        yaml        = { "prettier" },
+        markdown    = { "prettier" },
+    },
+})
 
-require("user.fzf")
+
+require("user.cmp")
 require("user.nvim-tree")
 require("user.bufferline")
-require("user.treesitter")
-
 require("user.keymaps")
 require("user.lspconfig")
+require("user.treesitter")
+require("user.fzf")

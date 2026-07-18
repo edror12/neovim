@@ -49,78 +49,83 @@ local modes = {
     ["!"] = { "SHELL", "Terminal" },
 }
 
-local statusline_modules = {}
+local function construct_file()
+    return "%#StatusLineGit#  󰈚 %y " .. " %#StatusLineEmptySpace#"
+end
 
-statusline_modules["%="] = "%="
+local function construct_git()
+    return "%#StatusLineGit# %{get(b:,'gitsigns_head','')}%#StatusLineEmptySpace# "
+end
 
-statusline_modules.mode = function()
-    local m = vim.api.nvim_get_mode().mode
+local function construct_cursor()
+    return "%#StatusLineCursorSep#" ..
+        separators.left .. "%#StatusLineCursorIcon#  %#StatusLineCursor# Line: %l/%L Column: %c "
+end
 
+local function construct_mode(m)
     local current_mode = "%#StatusLine" .. modes[m][2] .. "Mode#  " .. modes[m][1]
     local mode_sep = "%#StatusLine" .. modes[m][2] .. "ModeSep# " .. separators.right
     return current_mode .. mode_sep
 end
 
-statusline_modules.diagnostics = function()
-    local clients = {}
-    if #clients == 0 then
-        return "%#StatusLineFile#   LSP %#StatusLineFileSep#"
-            .. separators.right .. " %#StatusLineEmptySpace# "
+local function construct_lsps(buffer)
+    local lsps = ""
+    local clients = vim.lsp.get_clients({ bufnr = buffer })
+    local names = vim.tbl_map(function(c) return c.name end, clients)
+    if #names > 0 then
+        lsps = "   LSP (" .. table.concat(names, ", ") .. ")"
+    else
+        lsps = "   LSP "
     end
-
-    local names = {}
-    for _, obj in ipairs(clients) do
-        if obj.name then
-            table.insert(names, obj.name)
-        end
-    end
-
-    return "%#StatusLineFile#   LSP (" .. table.concat(names, ", ") .. ")%#StatusLineFileSep#"
-        .. separators.right .. " %#StatusLineEmptySpace# "
+    return "%#StatusLineFile# " .. lsps .. " %#StatusLineFileSep#" .. separators.right .. "  %#StatusLineEmptySpace#"
 end
 
+-- All shared data
 
-statusline_modules.file = function()
-    return "%#StatusLineFile#  󰈚 %f " .. "%#StatusLineFileSep#"
-        .. separators.right .. "  %#StatusLineEmptySpace#"
+local cwd = ""
+local git = construct_git()
+local file = construct_file()
+local mode = construct_mode("n")
+local cursor = construct_cursor()
+local servers = "%#StatusLineFile#    LSP  %#StatusLineFileSep#" .. separators.right .. "  %#StatusLineEmptySpace#"
+
+-- Master
+
+local function construct_statusline()
+    return mode .. servers .. git .. "%=" .. "%=" .. file .. cwd .. cursor
 end
 
-local git_branch = require("user.utils").git_branch()
-statusline_modules.git = function()
-    if git_branch then
-        return "%#StatusLineGit#   " .. git_branch .. "%#StatusLineEmptySpace# "
-    end
-    return "%#StatusLineEmptySpace#"
-end
+local statusline = construct_statusline()
 
-statusline_modules.cwd = function()
-    local name = vim.uv.cwd()
-    name = "%#StatusLineCwd#" .. " " .. (name:match "([^/\\]+)[/\\]*$" or name) .. "  "
-    local icon = "%#StatusLineCwdIcon#" .. " 󰉋 "
-    return (vim.o.columns > 85 and ("%#StatusLineCwdSep#" .. separators.left .. icon .. name)) or ""
-end
+-- Autocommands
 
-statusline_modules.cursor = function()
-    return "%#StatusLineCursorSep#" .. separators.left ..
-        "%#StatusLineCursorIcon#  %#StatusLineCursor# Line: %l/%L Column: %c "
-end
+vim.api.nvim_create_autocmd("ModeChanged", {
+    callback = function(args)
+        local _, new_mode = args.match:match("^(.+):(.+)$")
+        mode = construct_mode(new_mode)
+        statusline = construct_statusline()
+    end,
+})
 
+vim.api.nvim_create_autocmd({ "LspAttach", "LspDetach" }, {
+    callback = function(args)
+        servers = construct_lsps(args.buf)
+        statusline = construct_statusline()
+    end,
+})
+
+vim.api.nvim_create_autocmd({ "DirChanged", "VimEnter" }, {
+    callback = function()
+        local name = vim.uv.cwd() or ""
+        name = "%#StatusLineCwd#" .. " " .. (name:match "([^/\\]+)[/\\]*$" or name) .. "  "
+        local icon = "%#StatusLineCwdIcon#" .. " 󰉋 "
+        cwd = (vim.o.columns > 85 and ("%#StatusLineCwdSep#" .. separators.left .. icon .. name)) or ""
+        statusline = construct_statusline()
+    end,
+})
 
 -- Construct the statusline
+
 return function()
-    local statusline = {}
-    local order = {
-        "mode", "git", "%=", "%=", "cwd", "cursor"
-    }
-
-    for _, component in ipairs(order) do
-        local module = statusline_modules[component]
-        module = type(module) == "string" and module or module()
-        table.insert(statusline, module)
-    end
-
-    return table.concat(statusline)
+    return statusline
 end
-
-
-
