@@ -12,6 +12,7 @@ vim.pack.add({
     { src = "https://github.com/akinsho/bufferline.nvim",                   version = "main" },
     { src = "https://github.com/nvim-treesitter/nvim-treesitter",           version = "main" },
     { src = 'https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim', version = "main" },
+    { src = "https://github.com/neoclide/coc.nvim",                         version = "master" },
     { src = "https://github.com/SmiteshP/nvim-navic",                       version = "master" },
     { src = "https://github.com/windwp/nvim-autopairs",                     version = "master" },
     { src = "https://github.com/stevearc/conform.nvim",                     version = "master" },
@@ -19,8 +20,7 @@ vim.pack.add({
     { src = "https://github.com/nvim-tree/nvim-web-devicons",               version = "master" },
 })
 
-require("mason").setup()
-require("barbecue").setup({ create_autocmd = true })
+require("barbecue").setup()
 require("gitsigns").setup()
 require("nvim-autopairs").setup()
 require("which-key").setup({ triggers = { "<leader>" }, win = { border = "rounded" } })
@@ -38,11 +38,9 @@ require("conform").setup({
     },
 })
 
-
-require("user.cmp")
 require("user.nvim-tree")
 require("user.bufferline")
 require("user.keymaps")
-require("user.lspconfig")
 require("user.treesitter")
 require("user.fzf")
+require("user.coc")

@@ -54,7 +54,7 @@ local function construct_file()
 end
 
 local function construct_git()
-    return "%#StatusLineGit# %{get(b:,'gitsigns_head','')}%#StatusLineEmptySpace# "
+    return "%#StatusLineGit#   %{get(b:,'gitsigns_head','')}%#StatusLineEmptySpace# "
 end
 
 local function construct_cursor()
@@ -92,7 +92,7 @@ local servers = "%#StatusLineFile#    LSP  %#StatusLineFileSep#" .. separator
 -- Master
 
 local function construct_statusline()
-    return mode .. servers .. git .. "%=" .. "%=" .. file .. cwd .. cursor
+    return mode .. git .. "%=" .. "%=" .. file .. cwd .. cursor
 end
 
 local statusline = construct_statusline()
@@ -107,12 +107,12 @@ vim.api.nvim_create_autocmd("ModeChanged", {
     end,
 })
 
-vim.api.nvim_create_autocmd({ "LspAttach", "LspDetach" }, {
-    callback = function(args)
-        servers = construct_lsps(args.buf)
-        statusline = construct_statusline()
-    end,
-})
+-- vim.api.nvim_create_autocmd({ "LspAttach", "LspDetach" }, {
+--     callback = function(args)
+--         servers = construct_lsps(args.buf)
+--         statusline = construct_statusline()
+--     end,
+-- })
 
 vim.api.nvim_create_autocmd({ "DirChanged", "VimEnter" }, {
     callback = function()

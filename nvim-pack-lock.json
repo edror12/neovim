@@ -19,6 +19,11 @@
       "src": "https://github.com/hrsh7th/cmp-nvim-lsp",
       "version": "'main'"
     },
+    "coc.nvim": {
+      "rev": "953f1b674802d41981229859848295a9251c2bce",
+      "src": "https://github.com/neoclide/coc.nvim",
+      "version": "'master'"
+    },
     "conform.nvim": {
       "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
       "src": "https://github.com/stevearc/conform.nvim",
