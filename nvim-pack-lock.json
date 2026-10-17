@@ -53,6 +53,10 @@
       "src": "https://github.com/lukas-reineke/indent-blankline.nvim",
       "version": "'master'"
     },
+    "kotlin.nvim": {
+      "rev": "94dd4611baf067a426550321daa7b29a2fddd00d",
+      "src": "https://github.com/AlexandrosAlexiou/kotlin.nvim"
+    },
     "mason-lspconfig.nvim": {
       "rev": "a4068c3ebd4cb335b25239e5ea35c22ee6007962",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
@@ -101,6 +105,10 @@
       "rev": "0ca28b61a04fe7426cefbdd52c2647ef0e335b5f",
       "src": "https://github.com/nvim-tree/nvim-web-devicons",
       "version": "'master'"
+    },
+    "oil.nvim": {
+      "rev": "b73018b75affd13fa38e2fc94ef753b465f770d7",
+      "src": "https://github.com/stevearc/oil.nvim"
     },
     "onedark.nvim": {
       "rev": "df4792accde9db0043121f32628bcf8e645d9aea",

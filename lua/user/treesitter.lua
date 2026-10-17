@@ -22,6 +22,17 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function(args)
+		local lang = vim.treesitter.language.get_lang(args.match) or args.match
+
+		if not pcall(vim.treesitter.start, args.buf) then
+			require("nvim-treesitter").install({ lang })
+		end
+	end,
+})
+
 local function get_curr_or_prev_func_start()
 	-- Treesitter:    rows and cols are both 0-indexed
 	-- Neovim cursor: rows are 1-indexed, cols are 0-indexed
